@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="row">
+    <div class="col-3 text-center">
+      1 of 3
+        <div class="thumbnails1">
+            <img src="../static/bb.png" alt="..." class="img-thumbnail" width="200px" height="300px">
+        </div>
+        
+        < >
+        <br>
+        <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">Upload Images</button>
+        <br>
+
+    </div>
+    <div class="col-5 text-center">
+      
+      <div class="form-row-1 text-left">
+          <div>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Sell
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Donate
+                  </label>
+                </div>
+          </div>
+        <label class="form-label" for="formControl">Title</label>
+        <input
+        class="form-control"
+        id="formControl"
+        type="text"
+        placeholder="Title"
+        aria-label="Title"
+        
+        />
+        <label class="form-label" for="formControl">Edition</label>
+        <input
+            class="form-control"
+            id="formControl"
+            type="text"
+            placeholder="Edition"
+            aria-label="Edition"
+            
+        />
+        <label class="form-label" for="formControl">ISBN-13</label>
+        <input
+            class="form-control"
+            id="formControl"
+            type="text"
+            placeholder="ISBN-13"
+            aria-label="ISBN-13"
+            
+        />
+        <label class="form-label" for="formControl">Author</label>
+        <input
+            class="form-control"
+            id="formControl"
+            type="text"
+            placeholder="Author"
+            aria-label="Author"
+            
+        />
+        <label for="exampleFormControlSelect1">Condition</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option selected>Choose...</option>
+            <option>New</option>
+            <option>Great</option>
+            <option>Good</option>
+            <option>Average</option>
+            <option>Poor</option>
+        </select>
+        <label for="exampleFormControlSelect1">Class</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option selected>Choose...</option>
+            <option>x</option>
+            <option>x</option>
+            <option>x</option>
+            <option>x</option>
+            <option>x</option>
+        </select>
+        
+          
+      </div>
+    </div>
+    <div class="col text-center">
+      3 of 3
+        <div class="btn_group1">
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">List</button>
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #ebcea5;">Save as Draft</button>
+
+        </div>
+
+    </div>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+    <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">Welcome!</h3>
+    <h6 style="color:#8a100b;">Please enter an email and password below to create an account!</h6>
+</div>
+
+<div class="container mt-5">
+    <form method="post" class="w-75 m-auto">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        <div class="text-center mt-4"><button type="submit" class="px-5 py-2 btn" style="background-color: #8a100b; color: #ffffff;">Sign Up</button></div>
+      </form>
+</div>
+
+
+{% endblock %}

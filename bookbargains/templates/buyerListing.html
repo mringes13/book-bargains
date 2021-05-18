@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+
+<div class="row">
+    <div class="col-3 text-center">
+      1 of 3
+    <div class="thumbnails">
+        <img src="../static/bb.png" alt="..." class="img-thumbnail" width="200px" height="300px">
+    </div>
+      
+    < >
+    </div>
+    <div class="col-5 text-center">
+      django form goes in this column to show data
+      <div class="form-row">
+        <label class="form-label" for="formControlReadonly">Title</label>
+        <input
+          class="form-control"
+          id="formControlReadonly"
+          type="text"
+          placeholder="Title"
+          aria-label="Title"
+          readonly
+        />
+        <label class="form-label" for="formControlReadonly">Edition</label>
+        <input
+            class="form-control"
+            id="formControlReadonly"
+            type="text"
+            placeholder="Edition"
+            aria-label="Edition"
+            readonly
+        />
+        <label class="form-label" for="formControlReadonly">ISBN-13</label>
+        <input
+            class="form-control"
+            id="formControlReadonly"
+            type="text"
+            placeholder="ISBN-13"
+            aria-label="ISBN-13"
+            readonly
+        />
+        <label class="form-label" for="formControlReadonly">Author</label>
+        <input
+            class="form-control"
+            id="formControlReadonly"
+            type="text"
+            placeholder="Author"
+            aria-label="Author"
+            readonly
+        />
+        <label class="form-label" for="formControlReadonly">Condition</label>
+        <input
+            class="form-control"
+            id="formControlReadonly"
+            type="text"
+            placeholder="Condition"
+            aria-label="Condition"
+            readonly
+        />
+        <label class="form-label" for="formControlReadonly">Class</label>
+        <input
+            class="form-control"
+            id="formControlReadonly"
+            type="text"
+            placeholder="Class"
+            aria-label="Class"
+            readonly
+        />
+        </div>
+    </div>
+    <div class="col text-center">
+      3 of 3
+        <div class="btn_group">
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">Add to Cart</button>
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #ebcea5;">Save</button>
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #ebcea5;">Message</button>
+            <br>
+            <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #ebcea5;">View Seller</button>
+        </div>
+
+    </div>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}

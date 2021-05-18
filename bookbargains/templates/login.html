@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block body_block %}
+  <section id="clientcreation">
+    <section id="inside" class="pb-3 pt-0 pb-lg-5">
+        <div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+            <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">Welcome Back!</h3>
+            <h6 style="color:#8a100b;">To access your own account and profile, please enter your account email and password below.</h6>
+        </div>
+        <div class="container" style="width: 35%;">
+            <div class="mt-3 justify-content-center" id="signup">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+                        <p style="display: flex; align-items:center"><span class='mr-2'>Email: </span>{{form.username}}</p>
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="form-group">
+                        <p style="display: flex; align-items:center"><span class='mr-2'>Password: </span>{{form.password}}</p>
+                        {{ form.password.errors }}
+                    </div>
+                    <div class="text-center justify-content-center"><button type="submit">Login</button></div>
+                </form>
+                <!-- <form class="w-75 m-auto" method="post">
+                    <div class="form-group text-left">
+                        <label for="#emailsignin">Email</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                            </div>
+                            <input type="text" class="form-control" id="emailsignin" placeholder="Email">
+                            </div>
+                        <label for="#passwordsignin">Password</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa fa-key"></i></div>
+                            </div>
+                            <input type="text" class="form-control" id="passwordsignin" placeholder="Password">
+                        </div>
+                        <div style="text-align:right;"><a href="#" class='text-muted ml-auto' style="text-decoration:underline;">Forgot Password?</a></div>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <a onclick href='land' class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">Log In</a>
+                        </div>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </section>
+  </section>
+
+{% endblock %}

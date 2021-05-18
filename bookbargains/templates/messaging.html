@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+    <section id="inside" class="py-3 pb-lg-5">
+        <div class="container">
+            <h3 class="mt-1 mb-3 my-md-4 text-center text-md-left">MESSAGES</h3>
+            <div class="row w-100 d-flex justify-content-center m-auto">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active d-flex flex-row justify-content-between" id="list-home-list" data-toggle="list" href="#persona" role="tab" aria-controls="Person A"><p class="m-1">Person A</p><span class="badge badge-light">0</span></a>
+                        <a class="list-group-item list-group-item-action d-flex flex-row justify-content-between" id="list-profile-list" data-toggle="list" href="#personb" role="tab" aria-controls="Person B"><p class="m-1">Person B</p><span class="badge badge-light">2</span></a>
+                        <a class="list-group-item list-group-item-action d-flex flex-row justify-content-between" id="list-messages-list" data-toggle="list" href="#personc" role="tab" aria-controls="Person C"><p class="m-1">Person C</p><span class="badge badge-light">1</span></a>
+                        <a class="list-group-item list-group-item-action d-flex flex-row justify-content-between" id="list-messages-list" data-toggle="list" href="#report" role="tab" aria-controls="Person C"><p class="m-1">Person D</p><span class="badge badge-light">1</span></a>
+                        <a class="list-group-item list-group-item-action d-flex flex-row justify-content-between" id="list-messages-list" data-toggle="list" href="#admin" role="tab" aria-controls="Admin"><p class="m-1">Admin</p><span class="badge badge-light">1</span></a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active card" id="persona">
+                            <div class="d-flex flex-row px-3 mt-3 mb-2 justify-content-between" style="color: #8a100b;"><h4 class="m-auto">Person A</h4><a><i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i></a></div>
+                            <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                                <div class="triangle top-left"></div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-1">Hello, is this book available for $30?</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-end p-3 my-1 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                                <div class="triangle top-right"></div>
+                                <div class="mr-1 p-1">Yes, it is.</div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                                <div class="triangle top-left"></div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-1">Great! I will buy it. I am living in Dorm A. When can we meet?</div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-end p-3 my-1 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                                <div class="triangle top-right"></div>
+                                <div class="mr-1 p-1">...</div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row form-group px-3 mt-4"> <i class="fa fa-check-double my-auto mr-2"></i><textarea class="form-control" rows="1" placeholder="Type your message.."></textarea> <i class="fa fa-paper-plane my-auto mx-2"></i></div>
+                        </div>
+
+                        <div class="tab-pane fade card" id="personb">
+                            <div class="d-flex flex-row px-3 mt-3 mb-2 justify-content-between" style="color: #8a100b;"><h4 class="m-auto">Person B</h4><a><i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i></a></div>
+                            <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                                <div class="triangle top-left"></div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-1">Is this book still available?</div>
+                            </div>
+                            <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                                <div class="triangle top-left"></div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-1">Are you still interested in selling this book?</div>
+                            </div>
+                            <div class="d-flex flex-row form-group px-3 mt-4"><i class="fa fa-check-double my-auto mr-2"></i> <textarea class="form-control" rows="1" placeholder="Type your message.."></textarea><i class="fa fa-paper-plane my-auto mx-2"></i></div>
+                        </div>
+
+                        <div class="tab-pane fade card" id="personc">
+                            <div class="d-flex flex-row px-3 mt-3 mb-2 justify-content-between" style="color: #8a100b;"><h4 class="m-auto">Person C</h4><a><i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i></a></div>
+                            <div class="d-flex flex-row justify-content-end p-3 my-1 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                                <div class="triangle top-right"></div>
+                                <div class="mr-1 p-1">I have reduced the price of this book, are you interested?</div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                                <div class="triangle top-left"></div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-1">Not at this time, thank you though!</div>
+                            </div>
+                            <div class="d-flex flex-row p-0 m-3 rounded" style="position: relative"><span class="text-muted m-auto">The chat has ended.</span></div>
+                        </div>
+
+                        <div class="tab-pane fade card" id="report">
+                            <div class="d-flex flex-row px-3 mt-3 mb-2 justify-content-between" style="color: #8a100b;"><h4 class="m-auto">Person D</h4><a><i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i></a></div>
+                            <div class="d-flex flex-row justify-content-end p-3 my-1 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                                <div class="triangle top-right"></div>
+                                <div class="mr-1 p-1">*&#$ you!</div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-0 m-3 rounded" style="position: relative"><span class="text-center">Thank you for reporting this user! We will look into this user's status as a buyer or seller and will be sure to take action. Once this is resolved, you will receive an email with the decided status of the user at hand.</span></div>
+                            <div class="d-flex flex-row p-0 m-3 rounded" style="position: relative"><span class="text-muted m-auto">The chat has ended.</span></div>
+                        </div>
+
+
+                        <div class="tab-pane fade card" id="admin">
+                            <div class="d-flex flex-row px-3 mt-3 mb-2 justify-content-between" style="color: #8a100b;"><h4 class="m-auto">Book Bargainers</h4><a><i class="fa fa-2x fa-exclamation-circle" aria-hidden="true"></i></a></div>
+                            <div class="d-flex flex-row justify-content-end p-3 mt-1 mb-2 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                                <div class="triangle top-right"></div>
+                                <div class="mr-1 p-1">I see you have expressed interest in this book, however also have noticed you have not reached out to the buyer. Are you still interested in this book?
+                                    <div class="d-flex mx-auto mt-1" style="justify-content: space-around;">
+                                        <button class="btn" style="background-color: #8a100b; color: #ffffff;">Yes</button>
+                                        <button class="btn" style="background-color: #8a100b; color: #ffffff;">No</button>
+                                    </div>
+                                </div>
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

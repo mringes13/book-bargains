@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+    <h3 class="display-5 mt-4" style="color:#8a100b;">Welcome!</h3>
+    <h6 style="color:#8a100b;">Create a new message.</h6>
+  </div>
+
+
+<div class="container mt-4">
+    <form method="post" class="w-75 m-auto">
+      {% csrf_token %}
+        {% for field in MessageForm %}
+          <p id="{{ field.name }}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        <div class="text-center mt-4"><button class="text-center" type="submit">Create Messages</button></div>
+      </form>
+</div>
+
+
+{% endblock %}
