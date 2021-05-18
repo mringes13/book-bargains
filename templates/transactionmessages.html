@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="jumbotron pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+    <div class="row mt-5 text-center">
+        <div class="col-1"></div>
+        <div class="col-3 text-left" style="align-self:center;">
+            <a class="btn btn-outline-dark" href="{% url 'viewmytransactions' %}"><i class="fa fa-backward"></i> See All Transactions</a>
+        </div>
+        <div class="col-4">
+            <h3 class="display-5" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">MESSAGING 
+                {% if transaction.buyer == request.user %}
+                    {{transaction.seller}}
+                {% else %}
+                    {{transaction.buyer}}
+                {% endif %}
+            </h3>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <img class="card-img-top" src="{{transaction.book.image.url}}" alt="">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{transaction.book.title}}</h5>
+                    <ul class="text-center list-group list-group-flush">
+                        <li class="list-group-item">Owner: {{transaction.book.user.username}}</li>
+                        <li class="list-group-item">Author: {{transaction.book.author}}</li>
+                        <li class="list-group-item">ISBN: {{transaction.book.ISBN13}}</li>
+                        <li class="list-group-item">Edition: {{transaction.book.edition}}</li>
+                        <li class="list-group-item">Condition: {{transaction.book.get_condition_display}}</li>
+                        <li class="list-group-item">Field: {{transaction.book.get_field_display}}</li>
+                        <li class="list-group-item">Price: ${{transaction.book.price}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            {% if transactionmessages %}
+                <div class="container row pr-0">
+                    {% if transaction.status == 'Created' or transaction.status == 'Pending' %}
+                        {% if transaction.seller == request.user and transaction.sellerhasrated %} <!--if the current user is a buyer and the transaction indicates buyer has rated-->
+                        {% elif transaction.buyer == request.user and transaction.buyerhasrated %} <!--if the current user is a seller and the transaction indicates seller has rated-->
+                        {% else %}
+                            <div class="col text-left">
+                                <p class="p-1">
+                                    <span><a href="{% url 'donewithtransaction' doneusername=request.user.username transactionid=transaction.uuid %}" class="btn btn-outline-success">Transaction is complete! <i class="fa fa-check-circle"></i></a></span>
+                                </p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if transaction.status == 'Completed' %}
+                    {% else %}
+                        <div class="col text-right pr-0">
+                            <p class="p-1">
+                                <span><a href="{% url 'reportuser' transactionid=transaction.uuid %}" class="btn btn-outline-danger">Report User <i class="fa fa-flag" ></i></a></span>
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% for m in transactionmessages %}
+                    {% if m.sender == request.user %}
+                        <div class="d-flex flex-row justify-content-end p-3 my-1 mx-3 rounded" style="position: relative; background-color: #ebcea5;">
+                            <div class="triangle top-right"></div>
+                            <div class="mr-1 p-1">{{m.text}}</div>
+                            <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                        </div>
+                    {% else %}
+                        <div class="d-flex flex-row p-3 my-1 mx-3 rounded" style="position: relative; background-color: #c4a57b;">
+                            <div class="triangle top-left"></div>
+                            <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                            <div class="chat ml-2 p-1">{{m.text}}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p class="text-center" style="color: #8a100b; font-family: 'Oswald', sans-serif; font-size: 1.5em;">No messages have been exchanged yet.</p>
+            {% endif %}
+
+
+        
+            {% if transaction.status == 'Created' or transaction.status == 'Pending' %} <!--if the transaction is not complete-->
+                {% if transaction.seller == request.user and transaction.sellerhasrated %} <!--if the current user is a buyer and the transaction indicates buyer has rated-->
+                    <p class="text-center mt-2 mb-1" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.2em;">The transaction is pending. Thank you for rating the other user.</p>
+                    <p class="text-center mt-1" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.0em;">This transaction will be marked complete once the other user has rated their own experience.</p>
+                {% elif transaction.buyer == request.user and transaction.buyerhasrated %} <!--if the current user is a seller and the transaction indicates seller has rated-->
+                    <p class="text-center mt-2 mb-1" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.2em;">The transaction is pending. Thank you for rating the other user.</p>
+                    <p class="text-center mt-1" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.0em;">This transaction will be marked complete once the other user has rated their own experience.</p>
+                {% else %} <!-- if the current user hasnt already rated-->
+                    <form class="mt-3" method="post" class="w-50 m-auto">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <p class="m-auto d-flex" style="width: 95%;" id="{{ field.name }}">
+                            {{field}}<button class="py-1 ml-1 text-center btn btn-outline-dark" style="background:transparent; color: black;" type="submit">Send <i class="fa fa-paper-plane"></i></button>
+                            {% if field.help_text %}
+                                <small style="color: grey">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                        {% endfor %}
+                    </form>
+                    {% if transaction.status == 'Pending' %}
+                    <p class="text-center mt-2" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.0em;">The other user has marked this transaction as done. <br>Any messages you send can be seen by the user, but cannot be replied to. <br>To complete this transaction, please click "Transaction is complete!" above.</p>
+                    {% endif %}
+                {% endif %}
+            {% else %} <!--if the transaction is complete-->
+                <p class="text-center mt-2" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.5em;">The transaction is complete.</p>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

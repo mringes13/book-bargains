@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+  <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">MY PROFILE</h3>
+  <h5 class="mb-0" style="color:#8a100b;">Below is the information currently associated with you user, including profile information as well as any books you may have listed. <br>Additionally, explore books that have been recommended.</h5>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-3 text-center justify-content-center " style="align-self:center;">
+      <div>
+        <h5 style="color: #8a100b; font-family: 'Oswald', sans-serif;">USER PROFILE</h5>
+        <p><i style="color: #8a100b;" class="fas fa-user-circle fa-5x"></i></p>
+        <p class="my-1">Rating as Buyer: <i class="fa fa-star" style="color: #8a100b;"></i> {{myratings.buyerrating|floatformat:2}}</p>
+        <p class="my-1">Rating as Seller: <i class="fa fa-star" style="color: #8a100b;"></i> {{myratings.sellerrating|floatformat:2}}</p>
+      </div>
+    </div>
+    <div class="col-4 text-center p-3 rounded" style="background-color: #ebcea5; color: #000;">
+      <h5 class="mt-1">Welcome, {{request.user.get_full_name}}!</h5>
+      <p class="my-1">Email: {{request.user.email}}</p>
+      <p class="my-1">Phone: ({{myprofile.phone|slice:":3"}})-{{myprofile.phone|slice:"3:6"}}-{{myprofile.phone|slice:"6:10"}}</p>
+      <p class="my-1">Major: {{myprofile.major}}</p>
+      <p class="my-1 mb-0">Housing: {{myprofile.housing}}</p>
+    </div>
+    <div class="col-3"></div>
+  </div>
+</div>
+
+<center>
+  <div class="container">  
+    {% if myrecommendations %}
+      <h3 class="display-5 mt-5" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">BOOK RECOMMENDATIONS</h3>
+    {% else %}
+    <h3 class="display-5 mt-5" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.2em;">No book recommendations found. Check back later.</h3>
+    {% endif %}
+  </div>
+  
+  <div class="container">
+    <div class="row">
+      {% for Book in myrecommendations %}
+      {% if Book.user == request.user %}
+        <div class="container text-center">
+          <h3 class="display-5" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 1.2em;">No book recommendations found. Check back later.</h3>
+        </div>
+      {% else %}
+      <div class="pt-4 col-sm-3">
+        <div class="card bg-light" style="width: 18rem;">
+          <img class=“card-img-top w-100" style="height:286px;width:286px;" src="{{Book.image.url}}" alt="img" >
+          <div class="card-body p-3">
+            <h5 class="card-title mb-0">{{Book.title}}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item py-2">Field: {{Book.get_field_display}} </li>
+            <li class="list-group-item py-2">Author: {{Book.author}} </li>
+            <li class="list-group-item py-2">Edition: {{Book.edition}}</li>
+            <li class="list-group-item py-2">ISBN: {{Book.ISBN13}} </li>
+            <li class="list-group-item py-2">Condition: {{Book.get_condition_display}}</li>
+            <li class="list-group-item py-2">Price: ${{Book.price}}</li>
+          </ul>
+          {% if user.is_authenticated %}
+            <div class="card-footer">
+              <a href="{% url 'addtocart' bookid=Book.uuid %}" class="btn btn-outline-dark "><i class="fa fa-cart-plus"></i></a>
+              <a href="{% url 'addtowishlist' bookid=Book.uuid %}" class="btn btn-outline-dark"><i class="fa fa-bookmark"></i></a>
+              <a href="{% url 'reportedbook' bookid=Book.uuid %}" class="btn btn-outline-danger"><i class="fa fa-flag"></i></a>
+            </div>
+          {% endif %}
+      </div>
+      <div><p></p></div>
+    </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+
+
+
+<div class="container">  
+  {% if mycurrentbooks %}
+    <h3 class="display-5 mt-5" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">MY CURRENT LISTINGS</h3>
+  {% endif %}
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for Book in mycurrentbooks %}
+    <div class="pt-4 col-4">
+        <div class="card bg-light" style="width: 20rem;">
+          <img class=“card-img-top w-100" style="height:320px;width:320px;" src="{{Book.image.url}}" alt="img" >
+          <div class="card-body p-3">
+            <h5 class="card-title mb-0">{{Book.title}}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item py-2">Field: {{Book.get_field_display}} </li>
+            <li class="list-group-item py-2">Author: {{Book.author}} </li>
+            <li class="list-group-item py-2">Edition: {{Book.edition}}</li>
+            <li class="list-group-item py-2">ISBN: {{Book.ISBN13}} </li>
+            <li class="list-group-item py-2">Condition: {{Book.get_condition_display}}</li>
+            <li class="list-group-item py-2">Price: ${{Book.price}}</li>
+          </ul>
+          {% if Book.reported %}
+            <div class="card-footer">
+              <button type="button" class="btn btn-danger" disabled>Reported</button>
+            </div>
+            {% else %}
+              {% if user.is_authenticated %}
+              <div class="card-footer">
+                <a href="{% url 'removelisting' bookid=Book.uuid %}" class="btn btn-light">Delete Book</a>
+              </div>
+              {% endif %}
+          {% endif %}
+          
+      </div>
+      <div><p></p></div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<center>
+
+{% endblock %}

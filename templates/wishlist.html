@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+    <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">WISHLIST</h3>
+    <h6 class="w-75 m-auto" style="color:#8a100b;">Here, you can find the items you have previously added to your wishlist. If you are interested in buying these books, please add them to your cart and complete the transaction there.</h6>
+</div>
+
+<div class="container mt-5">
+    <h2></h2>
+    <table class="table table-striped">
+        <thead class="thead" style="color: #ffffff; background: #8a100b;">
+            <tr>
+                <th class="text-center" scope="col">#</th>
+                <th class="text-center"></th>
+                <th class="text-left" scope="col">Book</th>
+                <th class="text-center" scope="col">Field</th>
+                <th class="text-center" scope="col">Condition</th>
+                <th class="text-center" scope="col">Price</th>
+                <th class="text-center" scope="col">Options</th>
+                <th class="text-center" scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in wishlist.item.all %}
+            <tr>
+              <td class="text-center align-middle" scope="row">{{ forloop.counter }}</td>
+              <td class="text-center align-middle"><img style="max-height: 100px;" src="{{book.image.url}}"></td>
+              <td class="text-left align-middle">
+                  <div>
+                    <p class="my-1">Title: {{book.title}}</p>
+                    <p class="my-1">Author: {{book.author}}</p>
+                    <p class="my-1">Edition: {{book.edition}}</p>
+                    <p class="my-1">ISBN: {{book.ISBN13}}</p>
+                  </div>
+              </td>
+              <td class="text-center align-middle">{{book.get_field_display}}</td>
+              <td class="text-center align-middle">{{book.get_condition_display}}</td>
+              <td class="text-center align-middle">${{book.price}}</td>
+              <td class="text-center align-middle">
+                <a href="{% url 'switchfromwishlisttocart' bookid=book.uuid %}" class="btn btn-outline-dark">Add to Cart</a>
+              </td>
+              <td class="text-center align-middle"><a class="btn btn-outline-dark" href="{% url 'removefromwishlist' bookid=book.uuid %}">X</a></td>
+            </tr>
+            {% endfor %}
+            <thead class="thead" style="color: #ffffff; background: #8a100b;">
+                <tr>
+                    <th class="text-center" scope="col"></th>
+                    <th class="text-center"></th>
+                    <th class="text-left" scope="col"></th>
+                    <th class="text-center" scope="col"></th>
+                    <th class="text-center" scope="col"></th>
+                    <th class="text-center"></th>
+                    <th class="text-center" scope="col">Total</th>
+                    <th class="text-center" scope="col">${{wishlist.total}}</th>
+                </tr>
+            </thead>
+
+          </tbody>
+
+    </table>
+</div>
+
+{% endblock %}
+

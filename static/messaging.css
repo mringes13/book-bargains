@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+/* MESSAGING DIV */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+#inside{
+    background-image: url('b2.jpg');
+    background-size: cover;
+}
+
+.nav-link:hover{
+    text-decoration:underline;
+}
+
+#messaging .badge{
+    height: 50%;
+    padding: 7px;
+    font-size: 0.75rem;
+    margin-top: auto!important;
+    margin-bottom: auto!important;
+    background-color: #a38861;
+    color: #ffffff;
+}
+
+#messaging .active .badge{
+    background-color: #ffffff;
+    color: #8a100b;
+}
+
+/* MESSAGING ARROW */
+#messaging .triangle.top-left{
+    position:absolute;
+    border: 14px solid;
+    border-color: transparent #a38861 transparent transparent;
+    top:30%;
+    left: -25px;  
+}
+#messaging .triangle.top-right{
+    position:absolute;
+    border: 14px solid;
+    border-color: transparent transparent transparent #ebcea5;
+    top:30%;
+    right: -25px;
+}
+
+.list-group-item.active{
+    background-color: #8a100b;
+    border: none;
+    color: #ffffff;
+}
+.list-group-item.active .triangle{
+    display: block!important;
+    border-color: transparent transparent transparent #000000!important;
+}

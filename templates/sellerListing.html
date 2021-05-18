@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+  <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">LIST A BOOK</h3>
+  <h6 style="color:#8a100b;">Please fill out the following fields to list a book.</h6>
+</div>
+<div class="container">
+<form method="post" enctype="multipart/form-data" class="w-100 m-auto">
+<div class="row">
+    <div class="col-3 text-center">
+        <div class="thumbnails1 mt-5">
+            <img src="../static/bb.png" alt="..." class="img-thumbnail" width="200px" height="300px">
+        </div>
+        <br>
+        {{ ListBookForm.image.label_tag}}
+        {{ ListBookForm.image }}
+        <br>
+
+    </div>
+    <div class="col-6 container">
+            {% csrf_token %}
+            {% for field in ListBookForm %}
+              <p>
+                {% if not forloop.first %}
+                  {% if not forloop.last %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                  {% endif %}
+                {% endif %}
+                {% if field.help_text %}
+                  <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              </p>
+            {% endfor %}
+    </div>
+    <div class="col-3 mt-5">
+        <div class="btn_group1 mt-5 text-center">
+          <button type="submit" class="btn mx-auto mt-3" style="color: #fff; background-color: #8a100b;">List</button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+    <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">YOUR TRANSACTIONS</h3>
+</div>
+
+{% if not transactionsasseller %}
+    {% if not transactionsasbuyer %}
+        <div class="container text-center"><h5 class="mt-3" style="color: #8a100b; font-family: 'Oswald', sans-serif;">It appears as though you have no active transactions.</h5><h6 style="color: #8a100b; font-family: 'Oswald', sans-serif;">To have an active transaction, you must either message another user after having added their book to your cart OR <br>have had another user message you regarding a book you are selling.</h6></div>
+    {% endif %}
+{% endif %}
+<div class="container mt-3 pb-4">
+    {% if transactionsasseller %}
+        <h5 class="display-5 mt-2" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">Transactions as Seller</h5>
+        <div class="row">
+        {% for transaction in transactionsasseller %}
+            <div class="col-4 mb-3">
+                <div class="card rounded">
+                    <img class="card-img-top" src="{{transaction.book.image.url}}" alt="">
+                    <ul class="text-center list-group list-group-flush">
+                        <li class="list-group-item">Book Title: {{transaction.book.title}}</li>
+                        <li class="list-group-item">Book Owner: {{transaction.book.user.username}}</li>
+                        <li class="list-group-item" style="text-transform:upper;">Status: {{transaction.status|upper}}</li>
+                        <li class="list-group-item"><a class="btn btn-outline-dark" href="{% url 'viewtransactionmessages' selleruser=transaction.seller buyeruser=transaction.buyer transactionid=transaction.uuid%}">Open Chat with {{transaction.buyer}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% if transactionsasbuyer %}
+        <h5 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">Transactions as Buyer</h5>
+        <div class="row">
+        {% for transaction in transactionsasbuyer %}
+            <div class="col-4 mb-3">
+                <div class="card rounded">
+                    <img class="card-img-top" src="{{transaction.book.image.url}}" alt="">
+                    <ul class="text-center list-group list-group-flush">
+                        <li class="list-group-item">Book Title: {{transaction.book.title}}</li>
+                        <li class="list-group-item" style="text-transform:upper;">Status: {{transaction.status|upper}}</li>
+                        <li class="list-group-item"><a class="btn btn-outline-dark" href="{% url 'viewtransactionmessages' selleruser=transaction.seller buyeruser=transaction.buyer transactionid=transaction.uuid%}">Open chat with {{transaction.seller}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<div class="jumbotron text-center pt-3 pb-0 mt-0 mb-0" style="background-color: transparent; border-radius:0px">
+  <h3 class="display-5 mt-4" style="color:#8a100b; font-family: 'Oswald', sans-serif; font-size: 2em;">BOOKS TO BUY</h3>
+  <h5 class="mb-0" style="color:#8a100b;">Browse the selection of books that are currently available.</h5>
+  {% if user.is_authenticated %} <h6 class="mt-2" style="color:#8a100b;">
+    If you would like to add the book to your cart, select <i class="fa fa-cart-plus"></i>. Once at cart, you will have the option to message the owner. <br>If you would like to add the book to your wishlist for later reference, select <i class="fa fa-bookmark"></i>. <br>If you feel threatened or harrassed by a post or user, select <i class="fa fa-flag"></i> to report.</h6> 
+  {% endif %}
+</div>
+
+<div class="container bg-light rounded mt-3">
+  <h5 class="text-center mb-0 pt-3 mb-2" style="color: #8a100b; font-family: 'Oswald', sans-serif; ">SEARCH BAR</h5>
+  <form method="get" class="pb-3 text-center">
+      <div>{{filter.form}}</div>
+      <a class="btn btn-outline-dark" href="{% url 'searchfilter' %}">See All Available</a>
+      <button class="btn btn-outline-dark" type="submit">Search</button>
+  </form>
+</div>
+
+<center>
+<button class="btn mx-auto mt-3" style="color: #fff; background-color: #8a100b;">
+  <a href = '/searchfilter' style="color:#fff">Sort by Price: Low to High</a></button>
+<center>
+
+<center>
+  <div class="row">
+    {% for Book in books reversed %}
+      {% if Book.user == request.user %} <!--Hide the user's own books from them-->
+      {% else %}
+        {% if not Book.reported %}
+        <div class="pt-4 col-sm-3">
+            <div class="card bg-light" style="width: 18rem;">
+              <img class=“card-img-top w-100" style="height:286px;width:286px;" src="{{Book.image.url}}" alt="img" >
+              <div class="card-body p-3">
+                <h5 class="card-title mb-0">{{Book.title}}</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item py-2">Field: {{Book.get_field_display}} </li>
+                <li class="list-group-item py-2">Author: {{Book.author}} </li>
+                <li class="list-group-item py-2">Edition: {{Book.edition}}</li>
+                <li class="list-group-item py-2">ISBN: {{Book.ISBN13}} </li>
+                <li class="list-group-item py-2">Condition: {{Book.get_condition_display}}</li>
+                <li class="list-group-item py-2">Price: ${{Book.price}}</li>
+
+              </ul>
+              {% if user.is_authenticated %}
+              <div class="card-footer">
+                <a href="{% url 'addtocart' bookid=Book.uuid %}" class="btn btn-outline-dark "><i class="fa fa-cart-plus"></i></a>
+                <a href="{% url 'addtowishlist' bookid=Book.uuid %}" class="btn btn-outline-dark"><i class="fa fa-bookmark"></i></a>
+                <a href="{% url 'reportedbook' bookid=Book.uuid %}" class="btn btn-outline-danger"><i class="fa fa-flag"></i></a>
+              </div>
+              {% endif %}
+            </div>
+          <div><p></p></div>
+        </div>
+        {% else %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+<center>
+
+{% endblock %}

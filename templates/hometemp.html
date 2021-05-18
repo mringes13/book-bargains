@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+
+<style>
+  @media screen and (max-width: 1025px){
+    #bbargains{margin-top: 80px;}
+    #leftbottom{margin-bottom: 50px;}
+    #righttop{margin-top: 50px;}
+  }
+  @media screen and (min-width: 1025px){
+    #bbargains{margin-top: 90px;}
+    #righttop{margin-top:140px;}
+  }
+</style>
+<div class="row" style="height: 85vh;">
+    <div class="col-12 col-lg-6 text-center">
+        <h1 id="bbargains" style="color: #8a100b; font-weight: 700;" >Book Bargains</h1>
+        <img src="{% static 'bb.png'%}">
+        <h3 id="leftbottom">Join a community of college students <br>exchanging books at discounted prices</h3>
+    </div>
+    <div class="col-12 col-lg-6 text-center" style="background-color: #ebcea5;">
+      <h3 id="righttop">Welcome to the <strong>best</strong> university<br>book exchange community!</h3>
+      {% if user.is_authenticated %}<p style="height: 35px;"></p>{% endif %}
+      <h4 class="my-0">Are you...</h4>
+      <button class="btn mx-auto mt-3" style="color: #fff; background-color: #8a100b;">
+        <a href = 'search' style="color:#fff">BUYING</a></button>
+      <h6 class="mt-2 mb-0">Get books at discounted prices</h6>
+      <br>
+      <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">
+        <a href = 'listnew' style="color: #fff">SELLING</a>
+      </button>
+      <h6 class="mt-2 mb-0">Sell unwanted books with ease</h6>
+      <br>
+      {% if user.is_authenticated %}
+      {% else %}
+        <span>
+          <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">
+            <a href = 'login' style="color: #ffffff">Log In</a>
+          </button>
+          <button class="btn mx-auto mt-3" style="color: #ffffff; background-color: #8a100b;">
+            <a href = 'signup' style="color: #ffffff">Create Account</a>
+          </button>
+        </span>
+      {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
